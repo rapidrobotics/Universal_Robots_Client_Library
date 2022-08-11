@@ -311,6 +311,13 @@ public:
     trajectory_interface_->setTrajectoryEndCallback(trajectory_done_cb);
   }
 
+  /*!
+   * \brief Helper function to get rtde_client_
+   */
+  std::unique_ptr<rtde_interface::RTDEClient> getRTDEClient() {
+    return std::move(rtde_client_);
+  }
+
 private:
   std::string readScriptFile(const std::string& filename);
 
