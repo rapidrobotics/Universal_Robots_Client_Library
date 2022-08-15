@@ -424,8 +424,10 @@ bool RTDEClient::isRobotBooted()
 
 bool RTDEClient::start()
 {
-  if (client_state_ == ClientState::RUNNING)
+  if (client_state_ == ClientState::RUNNING) {
+    std::cout << "Client state is already RUNNING, return" << std::endl;
     return true;
+  }
 
   if (client_state_ == ClientState::UNINITIALIZED)
   {
@@ -437,11 +439,13 @@ bool RTDEClient::start()
 
   if (sendStart())
   {
+    std::cout << "Successfully send start" << std::endl;
     client_state_ = ClientState::RUNNING;
     return true;
   }
   else
   {
+    std::cout << "Fail to send start" << std::endl;
     return false;
   }
 }

@@ -283,8 +283,10 @@ public:
    */
   void run()
   {
-    if (running_)
+    if (running_) {
+      std::cout << "pipeline.running_ is true, return" << std::endl;
       return;
+    }
 
     running_ = true;
     producer_.startProducer();

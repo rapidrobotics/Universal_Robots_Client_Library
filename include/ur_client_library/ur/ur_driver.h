@@ -229,7 +229,7 @@ public:
    * After initialization, the cyclic RTDE communication is not started automatically, so that data
    * consumers can be started also at a later point.
    */
-  void startRTDECommunication();
+  bool startRTDECommunication();
 
   /*!
    * \brief Sends a stop command to the socket interface which will signal the program running on

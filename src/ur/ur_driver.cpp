@@ -229,9 +229,9 @@ bool UrDriver::writeKeepalive()
   return reverse_interface_->write(fake, comm::ControlMode::MODE_IDLE);
 }
 
-void UrDriver::startRTDECommunication()
+bool UrDriver::startRTDECommunication()
 {
-  rtde_client_->start();
+  return rtde_client_->start();
 }
 
 bool UrDriver::stopControl()
