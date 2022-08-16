@@ -424,7 +424,7 @@ bool RTDEClient::isRobotBooted()
 
 bool RTDEClient::start()
 {
-  std::cout << "In RTDEClient::start(): client_state: " << (int)client_state << std::endl;
+  std::cout << "In RTDEClient::start(): client_state: " << (int)client_state_ << std::endl;
   if (client_state_ == ClientState::RUNNING) {
     std::cout << "Client state is already RUNNING, return" << std::endl;
     return true;
