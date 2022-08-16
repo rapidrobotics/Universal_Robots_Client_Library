@@ -125,6 +125,7 @@ public:
    * \returns Wheter the RTDE data package communication was paussed succesfully
    */
   bool pause();
+  void disconnect();
   /*!
    * \brief Reads the pipeline to fetch the next data package.
    *
@@ -205,7 +206,7 @@ private:
   void queryURControlVersion();
   void setupOutputs(const uint16_t protocol_version);
   void setupInputs();
-  void disconnect();
+  //void disconnect();
 
   /*!
    * \brief Checks wheter the robot is booted, this is done by looking at the timestamp from the robot controller, this
