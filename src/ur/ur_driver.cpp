@@ -234,6 +234,11 @@ bool UrDriver::startRTDECommunication()
   return rtde_client_->start();
 }
 
+bool UrDriver::pauseRTDECommunication()
+{
+  return rtde_client_->pause();
+}
+
 bool UrDriver::stopControl()
 {
   vector6d_t* fake = nullptr;

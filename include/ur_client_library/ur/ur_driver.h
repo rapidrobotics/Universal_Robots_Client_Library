@@ -232,6 +232,11 @@ public:
   bool startRTDECommunication();
 
   /*!
+   * \brief Pauses the RTDE communication.
+   */
+  bool pauseRTDECommunication();
+
+  /*!
    * \brief Sends a stop command to the socket interface which will signal the program running on
    * the robot to no longer listen for commands sent from the remote pc.
    *

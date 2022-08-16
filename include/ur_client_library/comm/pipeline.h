@@ -360,6 +360,7 @@ private:
     realtime_file >> has_realtime;
     if (has_realtime)
     {
+      std::cout << "has_realtime" << std::endl;
       const int max_thread_priority = sched_get_priority_max(SCHED_FIFO);
       if (max_thread_priority != -1)
       {

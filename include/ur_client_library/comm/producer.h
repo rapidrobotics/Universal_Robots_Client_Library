@@ -88,6 +88,7 @@ public:
 
   void startProducer() override
   {
+    std::cout << "In producer::startProducer()" << std::endl;
     running_ = true;
   }
 
@@ -114,6 +115,8 @@ public:
         timeout_ = std::chrono::seconds(1);
         BinParser bp(buf, read);
         return parser_.parse(bp, products);
+      } else {
+        std::cout << "stream_.read() returns false" << std::endl;
       }
 
       if (!running_)
