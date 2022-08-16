@@ -578,7 +578,6 @@ std::vector<std::string> RTDEClient::readRecipe(const std::string& recipe_file)
 
 std::unique_ptr<rtde_interface::DataPackage> RTDEClient::getDataPackage(std::chrono::milliseconds timeout)
 {
-  std::cout << "getDataPackage timeout: " << timeout << std::endl;
   std::unique_ptr<RTDEPackage> urpackage;
   if (pipeline_.getLatestProduct(urpackage, timeout))
   {
