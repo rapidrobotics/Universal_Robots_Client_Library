@@ -578,16 +578,21 @@ std::vector<std::string> RTDEClient::readRecipe(const std::string& recipe_file)
 
 std::unique_ptr<rtde_interface::DataPackage> RTDEClient::getDataPackage(std::chrono::milliseconds timeout)
 {
+  std::cout << "getDataPackage timeout: " << timeout << std::endl;
   std::unique_ptr<RTDEPackage> urpackage;
   if (pipeline_.getLatestProduct(urpackage, timeout))
   {
+    std::cout << "pipeline.getLatestProduct is true" << std::endl;
     rtde_interface::DataPackage* tmp = dynamic_cast<rtde_interface::DataPackage*>(urpackage.get());
     if (tmp != nullptr)
     {
       urpackage.release();
       return std::unique_ptr<rtde_interface::DataPackage>(tmp);
+    } else {
+      std::cout << "cast urpackage.get() is nullptr" << std::endl;
     }
   }
+  std::cout << "pipeline.getLatestProduct is false, return nullptr as data package" << std::endl;
   return std::unique_ptr<rtde_interface::DataPackage>(nullptr);
 }
 

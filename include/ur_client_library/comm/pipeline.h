@@ -340,6 +340,8 @@ public:
     }
 
     // If the queue is empty, wait for a package.
+    std::cout << "get product?  " << res << std::endl;
+    std::cout << "waitDequeTimed: " << queue_.waitDequeTimed(product, timeout) << std::endl;
     return res || queue_.waitDequeTimed(product, timeout);
   }
 
@@ -413,10 +415,12 @@ private:
     {
       if (!producer_.tryGet(products))
       {
+        std::cout << "producer cannot get products!" << std::endl;
         producer_.teardownProducer();
         running_ = false;
         break;
       }
+      std::cout << "how many products: " << products.size() << std::endl;
 
       for (auto& p : products)
       {
@@ -425,6 +429,7 @@ private:
           URCL_LOG_ERROR("Pipeline producer overflowed! <%s>", name_.c_str());
         }
       }
+      std::cout << "finishing enqueue products to queue_" << std::endl;
 
       products.clear();
     }
