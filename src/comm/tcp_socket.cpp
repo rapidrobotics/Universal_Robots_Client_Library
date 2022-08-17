@@ -171,6 +171,7 @@ bool TCPSocket::read(uint8_t* buf, const size_t buf_len, size_t& read)
   }
   else if (res < 0) {
     std::cout << "abnormal, receving negative result" << std::endl;
+    std::cout << "::recv returns: " << res << " and the errno is: " << std::strerror(errno) << std::endl;
     return false;
   }
 
