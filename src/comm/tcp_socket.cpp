@@ -154,7 +154,10 @@ bool TCPSocket::read(uint8_t* buf, const size_t buf_len, size_t& read)
   read = 0;
 
   if (state_ != SocketState::Connected) {
-    std::cout << "socket state is not connected, socket state is: " << (int)state_ << std::endl;
+    std::cout << "socket state is not connected" << std::endl;
+    if (state_ == SocketState::Invalid) { std::cout << "socket state is invalid" << std::endl; }
+    else if (state_ == SocketState::Disconnected) { std::cout << "socket state is disconnected" << std::endl; }
+    else if (state_ == SocketState::Closed) { std::cout << "socket state is closed" << std::endl; }
     return false;
   }
 
