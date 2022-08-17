@@ -435,6 +435,7 @@ bool RTDEClient::start()
     return false;
   }
 
+  std::cout << "start pipeline run" << std::endl;
   pipeline_.run();
 
   if (sendStart())
@@ -506,6 +507,7 @@ bool RTDEClient::sendStart()
       return false;
     }
   }
+  std::cout << "cannot start rtde communication after max retries, throw exception" << std::endl;
   std::stringstream ss;
   ss << "Could not start RTDE communication after " << MAX_REQUEST_RETRIES
      << " tries. Please check the output of the "

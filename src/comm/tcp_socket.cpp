@@ -152,18 +152,23 @@ bool TCPSocket::read(uint8_t* buf, const size_t buf_len, size_t& read)
 {
   read = 0;
 
-  if (state_ != SocketState::Connected)
+  if (state_ != SocketState::Connected) {
+    std::cout << "socket state is not connected, socket state is: " << (int)state_ << std::endl;
     return false;
+  }
 
   ssize_t res = ::recv(socket_fd_, buf, buf_len, 0);
 
   if (res == 0)
   {
     state_ = SocketState::Disconnected;
+    std::cout << "receive nothing, socket state changes to disconnected" << std::endl;
     return false;
   }
-  else if (res < 0)
+  else if (res < 0) {
+    std::cout << "abnormal, receving negative result" << std::endl;
     return false;
+  }
 
   read = static_cast<size_t>(res);
   return true;
