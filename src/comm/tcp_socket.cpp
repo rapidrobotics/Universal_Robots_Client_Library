@@ -27,6 +27,7 @@
 #include <cstring>
 #include <sstream>
 #include <thread>
+#include <iostream>
 
 #include "ur_client_library/log.h"
 #include "ur_client_library/comm/tcp_socket.h"
