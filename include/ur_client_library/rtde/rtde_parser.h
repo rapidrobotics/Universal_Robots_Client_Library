@@ -83,6 +83,7 @@ public:
     {
       case PackageType::RTDE_DATA_PACKAGE:
       {
+        std::cout << "parse PackageType::RTDE_DATA_PACKAGE" << std::endl;
         std::unique_ptr<RTDEPackage> package(new DataPackage(recipe_));
 
         if (!package->parseWith(bp))
@@ -90,11 +91,14 @@ public:
           URCL_LOG_ERROR("Package parsing of type %d failed!", static_cast<int>(type));
           return false;
         }
+        if (package == nullptr) { std::cout << "RTDE_DATA_PACKAGE package is nullptr" << std::endl; }
+        else { std::cout << "RTDE_DATA_PACKAGE package is NOT nullptr" << std::endl; }
         results.push_back(std::move(package));
         break;
       }
       default:
       {
+        std::cout << "parse default case" << std::endl;
         std::unique_ptr<RTDEPackage> package(packageFromType(type));
         if (!package->parseWith(bp))
         {
@@ -102,6 +106,8 @@ public:
           return false;
         }
 
+        if (package == nullptr) { std::cout << "default case package is nullptr" << std::endl; }
+        else { std::cout << "default case package is NOT nullptr" << std::endl; }
         results.push_back(std::move(package));
         break;
       }
@@ -128,24 +134,31 @@ private:
     switch (type)
     {
       case PackageType::RTDE_TEXT_MESSAGE:
+        std::cout << "It's a RTDE_TEXT_MESSAGE" << std::endl;
         return new TextMessage(protocol_version_);
         break;
       case PackageType::RTDE_GET_URCONTROL_VERSION:
+        std::cout << "It's a RTDE_GET_URCONTROL_VERSION" << std::endl;
         return new GetUrcontrolVersion;
         break;
       case PackageType::RTDE_REQUEST_PROTOCOL_VERSION:
+        std::cout << "It's a RTDE_REQUEST_PROTOCOL_VERSION" << std::endl;
         return new RequestProtocolVersion;
         break;
       case PackageType::RTDE_CONTROL_PACKAGE_PAUSE:
+        std::cout << "It's a RTDE_CONTROL_PACKAGE_PAUSE" << std::endl;
         return new ControlPackagePause;
         break;
       case PackageType::RTDE_CONTROL_PACKAGE_SETUP_INPUTS:
+        std::cout << "It's a RTDE_CONTROL_PACKAGE_SETUP_INPUTS" << std::endl;
         return new ControlPackageSetupInputs;
         break;
       case PackageType::RTDE_CONTROL_PACKAGE_SETUP_OUTPUTS:
+        std::cout << "It's a RTDE_CONTROL_PACKAGE_SETUP_OUTPUTS" << std::endl;
         return new ControlPackageSetupOutputs;
         break;
       case PackageType::RTDE_CONTROL_PACKAGE_START:
+        std::cout << "It's a RTDE_CONTROL_PACKAGE_START" << std::endl;
         return new ControlPackageStart;
         break;
       default:

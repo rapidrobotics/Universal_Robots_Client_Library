@@ -110,23 +110,35 @@ public:
     {
       if (stream_.read(buf, sizeof(buf), read))
       {
+        std::cout << "stream is able to read" << std::endl;
         // reset sleep amount
         timeout_ = std::chrono::seconds(1);
         BinParser bp(buf, read);
-        return parser_.parse(bp, products);
+        bool result =  parser_.parse(bp, products);
+        if (products[0] == nullptr) { std::cout << "first element in products is nullptr" << std::endl; }
+        else { std::cout << "first element in products is NOT nullptr" << std::endl; }
+        return result;
+        //return parser_.parse(bp, products);
+      }
+      std::cout << "stream::read returns false" << std::endl;
+
+      if (!running_) {
+        std::cout << "producer is not running" << std::endl;
+        return true;
       }
 
-      if (!running_)
-        return true;
-
-      if (stream_.closed())
+      if (stream_.closed()) {
+        std::cout << "stream is closed" << std::endl;
         return false;
+      }
 
       URCL_LOG_WARN("Failed to read from stream, reconnecting in %ld seconds...", timeout_.count());
       std::this_thread::sleep_for(timeout_);
 
-      if (stream_.connect())
+      if (stream_.connect()) {
+        std::cout << "stream is connect" << std::endl;
         continue;
+      }
 
       auto next = timeout_ * 2;
       if (next <= std::chrono::seconds(120))
