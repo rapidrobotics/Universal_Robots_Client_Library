@@ -203,7 +203,14 @@ std::unique_ptr<rtde_interface::DataPackage> urcl::UrDriver::getDataPackage()
   // something else (combined_robot_hw)
   std::chrono::milliseconds timeout(get_packet_timeout_);
 
-  return rtde_client_->getDataPackage(timeout);
+  auto result = rtde_client_->getDataPackage(timeout);
+  if (result != nullptr) {
+    std::cout << "UrDriver::getDataPackage() returns valid data" << std::endl;
+  } else {
+    std::cout << "UrDriver::getDataPackage() returns invalid data (nullptr)" << std::endl;
+  }
+  return result;
+  //return rtde_client_->getDataPackage(timeout);
 }
 
 bool UrDriver::writeJointCommand(const vector6d_t& values, const comm::ControlMode control_mode)

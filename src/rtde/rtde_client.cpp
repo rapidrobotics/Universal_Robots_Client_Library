@@ -582,13 +582,17 @@ std::unique_ptr<rtde_interface::DataPackage> RTDEClient::getDataPackage(std::chr
   std::unique_ptr<RTDEPackage> urpackage;
   if (pipeline_.getLatestProduct(urpackage, timeout))
   {
+    std::cout << "RTDEClient::getDataPackage: pipleline can get LatestProduct" << std::endl;
     rtde_interface::DataPackage* tmp = dynamic_cast<rtde_interface::DataPackage*>(urpackage.get());
     if (tmp != nullptr)
     {
       urpackage.release();
       return std::unique_ptr<rtde_interface::DataPackage>(tmp);
+    } else {
+      std::cout << "But the received package is nullptr" << std::endl;
     }
   }
+  std::cout << "RTDEClient::getDataPackage: pipleline fail to get LatestProduct" << std::endl;
   return std::unique_ptr<rtde_interface::DataPackage>(nullptr);
 }
 

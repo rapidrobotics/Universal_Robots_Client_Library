@@ -339,6 +339,12 @@ public:
       res = true;
     }
 
+    if (product != nullptr) {
+      std::cout << "pipeline::getLatestProduct: product is not NULLPTR" << std::endl;
+    } else {
+      std::cout << "pipeline::getLatestProduct: product is NULLPTR" << std::endl;
+    }
+
     // If the queue is empty, wait for a package.
     return res || queue_.waitDequeTimed(product, timeout);
   }
@@ -412,13 +418,20 @@ private:
     {
       if (!producer_.tryGet(products))
       {
+        std::cout << "producer cannot get any product!!, going to tear down producer and stop running" << std::endl;
         producer_.teardownProducer();
         running_ = false;
         break;
       }
+      std::cout << "pipeline debug: products size: " << products.size() << std::endl;
 
       for (auto& p : products)
       {
+        if (p == nullptr) {
+          std::cout << "NULLPTR in products!!" << std::endl;
+        } else {
+          std::cout << "Valid ptr in products!!" << std::endl;
+        }
         if (!queue_.tryEnqueue(std::move(p)))
         {
           URCL_LOG_ERROR("Pipeline producer overflowed! <%s>", name_.c_str());
