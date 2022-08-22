@@ -138,9 +138,11 @@ public:
       if (stream_.connect()) {
         std::cout << "stream is connect" << std::endl;
         continue;
+      } else {
+        std::cout << "stream is NOT connect" << std::endl;
       }
 
-      auto next = timeout_ * 2;
+      auto next = timeout_ * 1;
       if (next <= std::chrono::seconds(120))
         timeout_ = next;
     }
