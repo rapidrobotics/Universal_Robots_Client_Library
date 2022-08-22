@@ -180,14 +180,6 @@ public:
     return output_recipe_;
   }
 
-  /*!
-  * \brief Helper function to get stream_
-  */
-  comm::URStream<RTDEPackage> getStream()
-  {
-    return stream_;
-  }
-
 private:
   comm::URStream<RTDEPackage> stream_;
   std::vector<std::string> output_recipe_;
