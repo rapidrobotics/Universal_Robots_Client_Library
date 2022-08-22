@@ -58,10 +58,12 @@ void TCPSocket::setOptions(int socket_fd)
 
 bool TCPSocket::setup(std::string& host, int port)
 {
+  /*
   if (state_ == SocketState::Connected) {
     std::cout << "tcp_socket state is already connected, no need to setup, return false" << std::endl;
     return false;
   }
+  */
 
   URCL_LOG_DEBUG("Setting up connection: %s:%d", host.c_str(), port);
 
