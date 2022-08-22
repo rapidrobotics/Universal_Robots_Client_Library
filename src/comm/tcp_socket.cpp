@@ -89,6 +89,9 @@ bool TCPSocket::setup(std::string& host, int port)
     for (struct addrinfo* p = result; p != nullptr; p = p->ai_next)
     {
       socket_fd_ = ::socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+      if (socket_fd_ == -1) {
+        std::cout << "fail to create socket endpoint, the errno is: " << std::strerror(errno) << std::endl;
+      }
 
       if (socket_fd_ != -1 && open(socket_fd_, p->ai_addr, p->ai_addrlen))
       {
@@ -173,8 +176,10 @@ bool TCPSocket::read(uint8_t* buf, const size_t buf_len, size_t& read)
     return false;
   }
   else if (res < 0) {
+    state_ = SocketState::Disconnected;
     std::cout << "abnormal, receving negative result" << std::endl;
     std::cout << "::recv returns: " << res << " and the errno is: " << std::strerror(errno) << std::endl;
+    std::cout << "change socket state to disconnected" << std::endl;
     return false;
   }
 
