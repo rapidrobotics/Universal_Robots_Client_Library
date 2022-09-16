@@ -510,7 +510,8 @@ bool RTDEClient::sendStart()
   ss << "Could not start RTDE communication after " << MAX_REQUEST_RETRIES
      << " tries. Please check the output of the "
         "negotiation attempts above to get a hint what could be wrong.";
-  throw UrException(ss.str());
+  URCL_LOG_WARN("%s", ss.str().c_str());
+  return false;
 }
 
 bool RTDEClient::sendPause()
