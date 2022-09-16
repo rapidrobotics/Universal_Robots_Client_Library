@@ -61,7 +61,7 @@ bool RTDEClient::init()
     return true;
   }
 
-  unsigned attempts = 0;
+  unsigned int attempts = 0;
   while (attempts < MAX_INITIALIZE_ATTEMPTS)
   {
     setupCommunication();
