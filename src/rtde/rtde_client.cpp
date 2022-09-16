@@ -68,7 +68,7 @@ bool RTDEClient::init()
     if (client_state_ == ClientState::INITIALIZED)
       return true;
 
-    URCL_LOG_DEBUG("Failed to initialize RTDE client, retrying in 10 seconds, attempt {} out of Max attempt {}", attempts, MAX_INITIALIZE_ATTEMPTS);
+    URCL_LOG_DEBUG("Failed to initialize RTDE client, retrying in 10 seconds, attempt %d out of Max attempt %d", attempts, MAX_INITIALIZE_ATTEMPTS);
     std::this_thread::sleep_for(std::chrono::seconds(10));
     attempts++;
   }

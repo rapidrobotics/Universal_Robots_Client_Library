@@ -51,7 +51,7 @@ namespace rtde_interface
 {
 static const uint16_t MAX_RTDE_PROTOCOL_VERSION = 2;
 static const unsigned MAX_REQUEST_RETRIES = 5;
-static const unsigned MAX_INITIALIZE_ATTEMPTS = 10;
+static const unsigned MAX_INITIALIZE_ATTEMPTS = 1;
 
 enum class UrRtdeRobotStatusBits
 {
