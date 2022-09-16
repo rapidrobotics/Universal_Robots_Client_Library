@@ -144,7 +144,7 @@ bool RTDEClient::negotiateProtocolVersion(const uint16_t protocol_version)
 {
   // Protocol version should always be 1 before starting negotiation
   parser_.setProtocolVersion(1);
-  static unsigned num_retries = 0;
+  unsigned int num_retries = 0;
   uint8_t buffer[4096];
   size_t size;
   size_t written;
@@ -190,7 +190,7 @@ bool RTDEClient::negotiateProtocolVersion(const uint16_t protocol_version)
 
 void RTDEClient::queryURControlVersion()
 {
-  static unsigned num_retries = 0;
+  unsigned int num_retries = 0;
   uint8_t buffer[4096];
   size_t size;
   size_t written;
@@ -236,7 +236,7 @@ void RTDEClient::queryURControlVersion()
 
 void RTDEClient::setupOutputs(const uint16_t protocol_version)
 {
-  static unsigned num_retries = 0;
+  unsigned int num_retries = 0;
   size_t size;
   size_t written;
   uint8_t buffer[4096];
@@ -311,7 +311,7 @@ void RTDEClient::setupOutputs(const uint16_t protocol_version)
 
 void RTDEClient::setupInputs()
 {
-  static unsigned num_retries = 0;
+  unsigned int num_retries = 0;
   size_t size;
   size_t written;
   uint8_t buffer[4096];
@@ -481,7 +481,7 @@ bool RTDEClient::sendStart()
   }
 
   std::unique_ptr<RTDEPackage> package;
-  static unsigned num_retries = 0;
+  unsigned int num_retries = 0;
   while (num_retries < MAX_REQUEST_RETRIES)
   {
     if (!pipeline_.getLatestProduct(package, std::chrono::milliseconds(1000)))
@@ -522,7 +522,7 @@ bool RTDEClient::sendPause()
     URCL_LOG_ERROR("Sending RTDE pause command failed!");
     return false;
   }
-  static unsigned num_retries = 0;
+  unsigned int num_retries = 0;
   while (num_retries < MAX_REQUEST_RETRIES)
   {
     std::unique_ptr<RTDEPackage> package;
