@@ -284,7 +284,6 @@ public:
   void run()
   {
     if (running_) {
-      std::cout << "pipeline.running_ is true, return" << std::endl;
       return;
     }
 

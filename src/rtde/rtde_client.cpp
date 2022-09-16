@@ -425,7 +425,6 @@ bool RTDEClient::isRobotBooted()
 bool RTDEClient::start()
 {
   if (client_state_ == ClientState::RUNNING) {
-    std::cout << "Client state is already RUNNING, return" << std::endl;
     return true;
   }
 
@@ -439,13 +438,11 @@ bool RTDEClient::start()
 
   if (sendStart())
   {
-    std::cout << "Successfully send start" << std::endl;
     client_state_ = ClientState::RUNNING;
     return true;
   }
   else
   {
-    std::cout << "Fail to send start" << std::endl;
     return false;
   }
 }
@@ -554,7 +551,8 @@ bool RTDEClient::sendPause()
   ss << "Could not pause RTDE communication after " << MAX_REQUEST_RETRIES
      << " tries. Please check the output of the "
         "negotiation attempts above to get a hint what could be wrong.";
-  throw UrException(ss.str());
+  URCL_LOG_WARN("%s", ss.str().c_str());
+  return false;
 }
 
 std::vector<std::string> RTDEClient::readRecipe(const std::string& recipe_file)
