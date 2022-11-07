@@ -346,6 +346,9 @@ private:
   bool non_blocking_read_;
 
   VersionInformation robot_version_;
+
+  //std::shared_ptr<YAML::Node> calibration_data_;
+  std::shared_ptr<json> calibration_data_;
 };
 }  // namespace urcl
 #endif  // ifndef UR_CLIENT_LIBRARY_UR_UR_DRIVER_H_INCLUDED

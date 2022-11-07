@@ -268,11 +268,21 @@ bool UrDriver::checkCalibration(const std::string& checksum)
   comm::Pipeline<primary_interface::PrimaryPackage> pipeline(prod, &consumer, "Pipeline", notifier);
   pipeline.run();
 
-  while (!consumer.isChecked())
+  while (!consumer.isChecked() || !consumer.isCalibrated())
   {
     std::this_thread::sleep_for(std::chrono::seconds(1));
   }
-  URCL_LOG_DEBUG("Got calibration information from robot.");
+  calibration_data_.reset(new json);
+  *calibration_data_ = consumer.getCalibrationParameters();
+  std::string s = *calibration_data_.dump();
+  URCL_LOG_DEBUG("Got calibration information from robot: %s", s.c_str());
+  /*
+  calibration_data_.reset(new YAML::Node);
+  *calibration_data_ = consumer.getCalibrationParameters();
+  YAML::Emitter emitter;
+  emitter << *calibration_data_;
+  URCL_LOG_DEBUG("Got calibration information from robot: %s", emitter.c_str());
+  */
   return consumer.checkSuccessful();
 }
 

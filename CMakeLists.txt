@@ -8,6 +8,7 @@ if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE RelWithDebInfo)
 endif()
 
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
 ##
 ## Check C++11 support / enable global pedantic and Wall
@@ -38,6 +39,7 @@ add_library(urcl SHARED
     src/rtde/text_message.cpp
     src/rtde/rtde_client.cpp
     src/ur/ur_driver.cpp
+    src/ur/calibration.cpp
     src/ur/calibration_checker.cpp
     src/ur/dashboard_client.cpp
     src/ur/tool_communication.cpp
@@ -58,7 +60,7 @@ if(THREADS_HAVE_PTHREAD_ARG)
   target_compile_options(urcl PUBLIC "-pthread")
 endif()
 if(CMAKE_THREAD_LIBS_INIT)
-  target_link_libraries(urcl PUBLIC "${CMAKE_THREAD_LIBS_INIT}")
+  target_link_libraries(urcl PUBLIC "${CMAKE_THREAD_LIBS_INIT}" Eigen3::Eigen)
 endif()
 
 ##

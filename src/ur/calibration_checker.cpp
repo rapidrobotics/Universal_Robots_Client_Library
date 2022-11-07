@@ -31,7 +31,7 @@
 namespace urcl
 {
 CalibrationChecker::CalibrationChecker(const std::string& expected_hash)
-  : expected_hash_(expected_hash), checked_(false), matches_(false)
+  : expected_hash_(expected_hash), checked_(false), matches_(false), calibrated_(false)
 {
 }
 bool CalibrationChecker::consume(std::shared_ptr<primary_interface::PrimaryPackage> product)
@@ -41,11 +41,31 @@ bool CalibrationChecker::consume(std::shared_ptr<primary_interface::PrimaryPacka
   {
     // URCL_LOG_INFO("%s", product->toString().c_str());
     //
+    DHRobot my_robot;
+    for (size_t i = 0; i < kin_info->dh_a_.size(); ++i) {
+      my_robot.segments_.push_back(
+          DHSegment(kin_info->dh_d_[i], kin_info->dh_a_[i], kin_info->dh_theta_[i], kin_info->dh_alpha_[i]));
+    }
+    Calibration calibration(my_robot);
+    calibration.correctChain();
+
+    //calibration_parameters_ = calibration.toYaml();
+    calibration_parameters_ = calibration.toJSON();
+    calibration_parameters_["kinematics"]["hash"] = kin_info->toHash();
     matches_ = kin_info->toHash() == expected_hash_;
 
     checked_ = true;
+    calibrated_ = true;
   }
 
   return true;
+}
+
+json CalibrationChecker::getCalibrationParameters() const
+{
+  if (!calibrated_) {
+    throw(std::runtime_error("Cannot get calibration, as no calibration data received yet"));
+  }
+  return calibration_parameters_;
 }
 }  // namespace urcl

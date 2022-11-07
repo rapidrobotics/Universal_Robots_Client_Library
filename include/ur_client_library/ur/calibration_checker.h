@@ -31,6 +31,7 @@
 #include <ur_client_library/comm/pipeline.h>
 
 #include <ur_client_library/primary/robot_state/kinematics_info.h>
+#include "calibration.hpp"
 
 namespace urcl
 {
@@ -107,10 +108,21 @@ public:
     return matches_;
   }
 
+  bool isCalibrated()
+  {
+    return calibrated_;
+  }
+
+  //YAML::Node getCalibrationParameters() const;
+  json getCalibrationParameters() const;
+
 private:
   std::string expected_hash_;
   bool checked_;
   bool matches_;
+  bool calibrated_;
+  //YAML::Node calibration_parameters_;
+  json calibration_parameters_;
 };
 }  // namespace urcl
 
