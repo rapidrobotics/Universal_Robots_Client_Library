@@ -411,6 +411,7 @@ private:
     {
       if (!producer_.tryGet(products))
       {
+        URCL_LOG_DEBUG("Fail to tryGet from producer, going to tear down producer");
         producer_.teardownProducer();
         running_ = false;
         break;
