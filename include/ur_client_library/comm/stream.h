@@ -143,6 +143,7 @@ bool URStream<T>::read(uint8_t* buf, const size_t buf_len, size_t& total)
   size_t remainder = sizeof(typename T::HeaderType::_package_size_type);
   size_t read = 0;
 
+  URCL_LOG_DEBUG("Before while loop remainder: %zd", remainder);
   while (remainder > 0 && TCPSocket::read(buf_pos, remainder, read))
   {
     TCPSocket::setOptions(getSocketFD());
@@ -162,6 +163,7 @@ bool URStream<T>::read(uint8_t* buf, const size_t buf_len, size_t& total)
     remainder -= read;
   }
 
+  URCL_LOG_DEBUG("After while loop remainder: %zd", remainder);
   return remainder == 0;
 }
 }  // namespace comm

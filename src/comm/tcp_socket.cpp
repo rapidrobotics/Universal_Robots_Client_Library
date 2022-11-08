@@ -152,18 +152,23 @@ bool TCPSocket::read(uint8_t* buf, const size_t buf_len, size_t& read)
 {
   read = 0;
 
-  if (state_ != SocketState::Connected)
+  if (state_ != SocketState::Connected) {
+    URCL_LOG_DEBUG("state_ is not Connected, return false");
     return false;
+  }
 
   ssize_t res = ::recv(socket_fd_, buf, buf_len, 0);
 
   if (res == 0)
   {
     state_ = SocketState::Disconnected;
+    URCL_LOG_DEBUG("::recv returns 0");
     return false;
   }
-  else if (res < 0)
+  else if (res < 0) {
+    URCL_LOG_DEBUG("::recv returns negative value");
     return false;
+  }
 
   read = static_cast<size_t>(res);
   return true;
