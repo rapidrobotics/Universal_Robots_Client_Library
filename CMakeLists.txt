@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.5)
 project(ur_client_library)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/" ${CMAKE_MODULE_PATH})
@@ -9,6 +9,7 @@ if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
 endif()
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+find_package(nlohmann_json 3.2.0 REQUIRED)
 
 ##
 ## Check C++11 support / enable global pedantic and Wall
@@ -60,7 +61,7 @@ if(THREADS_HAVE_PTHREAD_ARG)
   target_compile_options(urcl PUBLIC "-pthread")
 endif()
 if(CMAKE_THREAD_LIBS_INIT)
-  target_link_libraries(urcl PUBLIC "${CMAKE_THREAD_LIBS_INIT}" Eigen3::Eigen)
+  target_link_libraries(urcl PUBLIC "${CMAKE_THREAD_LIBS_INIT}" Eigen3::Eigen nlohmann_json::nlohmann_json)
 endif()
 
 ##

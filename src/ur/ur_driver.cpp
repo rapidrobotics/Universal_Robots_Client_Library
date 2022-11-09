@@ -272,9 +272,9 @@ bool UrDriver::checkCalibration(const std::string& checksum)
   {
     std::this_thread::sleep_for(std::chrono::seconds(1));
   }
-  calibration_data_.reset(new json);
+  calibration_data_.reset(new nlohmann::json);
   *calibration_data_ = consumer.getCalibrationParameters();
-  std::string s = *calibration_data_.dump();
+  std::string s = (*calibration_data_).dump();
   URCL_LOG_DEBUG("Got calibration information from robot: %s", s.c_str());
   /*
   calibration_data_.reset(new YAML::Node);

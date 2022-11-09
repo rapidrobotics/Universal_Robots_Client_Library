@@ -39,6 +39,8 @@
 #include "ur_client_library/primary/robot_message/version_message.h"
 #include "ur_client_library/rtde/rtde_writer.h"
 
+#include <nlohmann/json.hpp>
+
 namespace urcl
 {
 /*!
@@ -348,7 +350,7 @@ private:
   VersionInformation robot_version_;
 
   //std::shared_ptr<YAML::Node> calibration_data_;
-  std::shared_ptr<json> calibration_data_;
+  std::shared_ptr<nlohmann::json> calibration_data_;
 };
 }  // namespace urcl
 #endif  // ifndef UR_CLIENT_LIBRARY_UR_UR_DRIVER_H_INCLUDED
