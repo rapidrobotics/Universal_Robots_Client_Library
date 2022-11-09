@@ -242,7 +242,7 @@ json Calibration::toJSON() const
   for (std::size_t i = 0; i < link_names_.size(); ++i) {
     json link;
     link["d"] = chain[i](2, 3);
-    link["theta"] = std::acos(chain[i](2, 3));
+    link["theta"] = std::acos(chain[i](0, 0));
     link["r"] = chain[i](0, 3) / chain[i](0, 0);
     link["alpha"] = std::acos(chain[i](2, 2));
 
