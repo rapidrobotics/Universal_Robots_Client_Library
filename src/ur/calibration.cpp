@@ -245,7 +245,7 @@ json Calibration::toJSON() const
     link["theta"] = std::acos(chain[i](2, 3));
     link["r"] = chain[i](0, 3) / chain[i](0, 0);
     link["alpha"] = std::acos(chain[i](2, 2));
-    /*
+
     link["x"] = chain[i](0, 3);
     link["y"] = chain[i](1, 3);
     link["z"] = chain[i](2, 3);
@@ -254,7 +254,7 @@ json Calibration::toJSON() const
     link["roll"] = rpy[0];
     link["pitch"] = rpy[1];
     link["yaw"] = rpy[2];
-    */
+
     node["kinematics"][link_names_[i]] = link;
   }
 
