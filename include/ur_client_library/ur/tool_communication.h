@@ -40,9 +40,9 @@ namespace urcl
  */
 enum class ToolVoltage : int
 {
-  OFF = 0,    ///< 0V
-  _12V = 12,  ///< 12V
-  _24V = 24   ///< 24V
+  TOOL_VOLTAGE_OFF = 0,    ///< 0V
+  TOOL_VOLTAGE_12V = 12,  ///< 12V
+  TOOL_VOLTAGE_24V = 24   ///< 24V
 };
 
 /*!

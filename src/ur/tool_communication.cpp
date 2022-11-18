@@ -31,7 +31,7 @@
 namespace urcl
 {
 ToolCommSetup::ToolCommSetup()
-  : tool_voltage_(ToolVoltage::OFF)
+  : tool_voltage_(ToolVoltage::TOOL_VOLTAGE_OFF)
   , parity_(Parity::ODD)
   , baud_rate_(9600)
   , stop_bits_(1, 2)
